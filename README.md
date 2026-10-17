@@ -1,4 +1,5 @@
 DEMO:https://youtu.be/E0mmY1vO-i8?si=kK_wKvLTUv8cpz-y
+
 專題心得
 
 透過這次電影管理平台的開發專案，我學習到如何運用 ASP.NET Core MVC 架構建立一個具備基本功能的電影商城，並將課堂上學到的程式設計與資料庫知識實際應用於專案中。在開發過程中，我完成了電影資料的新增、查詢、修改與刪除（CRUD）、使用者登入、購物車、訂單管理等功能，並透過 Entity Framework Core 連接 SQL Server，實現系統與資料庫之間的資料存取。
