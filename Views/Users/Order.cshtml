@@ -1,0 +1,162 @@
+﻿@model List<_1131754.Models.Order>
+
+@{
+    ViewData["Title"] = "電影訂單紀錄";
+}
+
+<style>
+    body {
+        background: linear-gradient(to bottom, #0f0f0f, #1c1c1c);
+        color: #f5f5f5;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    h1 {
+        color: #ff4444;
+        font-weight: bold;
+        margin-bottom: 2rem;
+    }
+
+    .order-card {
+        background-color: #1f1f1f;
+        border: 1px solid #333;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        transition: 0.3s;
+    }
+
+        .order-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(255,68,68,0.3);
+        }
+
+    .order-header {
+        background: linear-gradient(to right, #b31217, #e52d27);
+        padding: 1rem;
+        font-weight: bold;
+        color: white;
+        font-size: 1.05rem;
+    }
+
+    .table {
+        color: #f5f5f5;
+        margin: 0;
+    }
+
+        .table thead {
+            background-color: #2a2a2a;
+        }
+
+        .table th {
+            color: #ff6666;
+            border-color: #444;
+        }
+
+        .table td {
+            vertical-align: middle;
+            border-color: #333;
+        }
+
+    .movie-name {
+        font-weight: bold;
+        color: #ffffff;
+    }
+
+    .price-text {
+        color: #ffd166;
+        font-weight: bold;
+    }
+
+    .total-text {
+        color: #00e676;
+        font-size: 1.2rem;
+    }
+
+    .no-orders {
+        background-color: #1f1f1f;
+        padding: 2rem;
+        border-radius: 15px;
+        text-align: center;
+        border: 1px solid #333;
+        font-size: 1.1rem;
+    }
+
+    .card-body {
+        background-color: #181818;
+    }
+</style>
+
+<div class="container py-5">
+
+    <h1>🎬 我的電影訂單紀錄</h1>
+
+    @if (!Model.Any())
+    {
+        <div class="no-orders">
+            目前沒有任何電影訂單紀錄。
+        </div>
+    }
+    else
+    {
+        foreach (var order in Model)
+        {
+            <div class="order-card mb-4">
+
+                <div class="order-header">
+                    📄 訂單編號：@order.OrderID
+                    ｜ 📅 訂購日期：@order.OrderDate.ToString("yyyy/MM/dd HH:mm")
+                </div>
+
+                <div class="card-body p-4">
+
+                    <table class="table table-bordered align-middle">
+
+                        <thead>
+                            <tr>
+                                <th>🎬 電影名稱</th>
+                                <th>📦 數量</th>
+                                <th>💲 單價</th>
+                                <th>🧾 小計</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var detail in order.OrderDetails)
+                            {
+                                <tr>
+                                    <td class="movie-name">
+                                        @detail.Movie.Name
+                                    </td>
+
+                                    <td>
+                                        @detail.Quantity
+                                    </td>
+
+                                    <td class="price-text">
+                                        NT$ @detail.Price
+                                    </td>
+
+                                    <td class="price-text">
+                                        NT$ @(detail.Price * detail.Quantity)
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                    <div class="text-end fw-bold total-text mt-3">
+                        💰 總金額：
+                        NT$ @order.OrderDetails.Sum(d => d.Price * d.Quantity)
+                    </div>
+
+                </div>
+
+            </div>
+        }
+    }
+
+</div>

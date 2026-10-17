@@ -1,0 +1,139 @@
+﻿@{
+    var search = ViewBag.Search as string ?? "";
+    var types = ViewBag.Types as List<string> ?? new List<string>();
+    var type = ViewBag.Type as string ?? "";
+}
+
+<style>
+
+    .search-box {
+        background-color: #1f1f1f;
+        padding: 20px;
+        border-radius: 15px;
+        border: 1px solid #333;
+        box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    }
+
+    .search-input {
+        background-color: #2b2b2b;
+        border: 1px solid #444;
+        color: white;
+        height: 50px;
+        border-radius: 10px;
+    }
+
+        .search-input:focus {
+            background-color: #2b2b2b;
+            color: white;
+            border-color: #ff4444;
+            box-shadow: none;
+        }
+
+        .search-input::placeholder {
+            color: #aaaaaa;
+        }
+
+    .search-select {
+        background-color: #2b2b2b;
+        border: 1px solid #444;
+        color: white;
+        height: 50px;
+        border-radius: 10px;
+    }
+
+        .search-select:focus {
+            background-color: #2b2b2b;
+            color: white;
+            border-color: #ff4444;
+            box-shadow: none;
+        }
+
+    .search-btn {
+        background: linear-gradient(to right, #b31217, #e52d27);
+        border: none;
+        height: 50px;
+        border-radius: 10px;
+        font-weight: bold;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        white-space: nowrap;
+        transition: 0.3s;
+    }
+
+        .search-btn:hover {
+            background: linear-gradient(to right, #d4141a, #ff4b2b);
+            color: white;
+        }
+
+</style>
+
+<div class="search-box mb-4">
+
+    <div class="card-body">
+
+        <form asp-action="Store"
+              method="get"
+              class="row g-3 align-items-center">
+
+            <div class="col-md-5">
+
+                <input type="text"
+                       name="search"
+                       class="form-control search-input"
+                       placeholder="🎬 搜尋電影名稱..."
+                       value="@search" />
+
+            </div>
+
+            <div class="col-md-3">
+
+                <select name="Type"
+                        class="form-select search-select">
+
+                    <option value="">
+                        所有電影類型
+                    </option>
+
+                    @if (types != null)
+                    {
+                        @foreach (var c in types)
+                        {
+                            if (c == type)
+                            {
+                                <option value="@c" selected>
+                                    @c
+                                </option>
+                            }
+                            else
+                            {
+                                <option value="@c">
+                                    @c
+                                </option>
+                            }
+                        }
+                    }
+
+                </select>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <button type="submit"
+                        class="btn search-btn w-100">
+
+                    <span>🔍</span>
+                    <span>搜尋電影</span>
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
